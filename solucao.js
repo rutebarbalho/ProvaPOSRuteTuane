@@ -1,9 +1,27 @@
-var json = require(__dirname + '/numero.json');
-var fs = require("fs");
-console.log(json[0].numeros);
-var n = json[0].numeros.split(",");
+function lerCsv(arquivo){
+	var fs = require('fs')
+	var csv = require('csv-string')
+	var arquivo = __dirname + '/numero.csv';
+	var resultado;
+	fs.readFile(arquivo, 'utf8', (err, data) => {
+	    resultado = csv.parse(data);
+})
+	function lerXML(arquivo, funcao) {
+	    var fs = require('fs');
+	    var xmlParser = require('xml2js').parseString;
+
+	    fs.readFile(arquivo, function(err, data) {
+	        xmlParser(data, funcao);
+				})
+}
+function lerJson() {
+	var json = require(__dirname + '/numero.json');
+	var fs = require("fs");
+	console.log(json[0].numeros);
+	var n = json[0].numeros.split(",");
+}
 function Intervalos() {
-	var n = JSON.parse(fs.readFileSync(json));
+	lerJson()
 	var grupo = [];
 	var grupos = [];
 	for (var x=0; x<n.length; x++){
@@ -24,7 +42,6 @@ function Intervalos() {
 			}
 			salvar_arquivo("/intervalos.json", intervalo)
 		}
-
 function salvar_arquivo() {
 	fs.writeFile('intervalos.json', JSON.stringify(intervalo), function (err) {
 	if (err) return console.log(err);
