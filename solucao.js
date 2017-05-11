@@ -1,27 +1,49 @@
-function lerCsv(arquivo){
+var nomeArquivo = process.argv[2];
+var n;
+function lerEntrada(nomeArquivo){
+	var index = nomeArquivo.lastIndexOf(".")
+	var extensao = nomeArquivo.substring(index + 1, nomeArquivo.length);
+	return extensao;
+}
+var e = lerEntrada(nomeArquivo);
+if (e == 'json'){
+	lerJson()
+}
+if (e == 'csv'){
+	lerCsv()
+}
+if (e == 'xml'){
+	lerXML()
+}
+function lerCsv(nomeArquivo){
 	var fs = require('fs')
 	var csv = require('csv-string')
-	var arquivo = __dirname + '/numero.csv';
+	var arquivo = __dirname + '/' + nomeArquivo;
 	var resultado;
 	fs.readFile(arquivo, 'utf8', (err, data) => {
 	    resultado = csv.parse(data);
+		Intervalos()
 })
-	function lerXML(arquivo, funcao) {
+	function lerXML(nomeArquivo, funcao) {
+		var arquivo = __dirname + '/' + nomeArquivo;
+		var n = [];
 	    var fs = require('fs');
 	    var xmlParser = require('xml2js').parseString;
 
-	    fs.readFile(arquivo, function(err, data) {
+	    fs.readFile(nomeArquivo, function(err, data) {
 	        xmlParser(data, funcao);
 				})
+				Intervalos()
 }
-function lerJson() {
-	var json = require(__dirname + '/numero.json');
+function lerJson(nomeArquivo) {
+	var json = require(__dirname + '/' + nomeArquivo);
+	console.log(json);
 	var fs = require("fs");
 	console.log(json[0].numeros);
-	var n = json[0].numeros.split(",");
+	n = json[0].numeros.split(",");
+	Intervalos()
 }
 function Intervalos() {
-	lerJson()
 	var grupo = [];
 	var grupos = [];
 	for (var x=0; x<n.length; x++){
