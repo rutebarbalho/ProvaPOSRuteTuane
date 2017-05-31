@@ -1,26 +1,4 @@
-var fs = require('fs')
-
-main();
-
-function main() {
-	var nomeArquivo = process.argv[2];
-	var n;
-
-	var e = lerEntrada(nomeArquivo);
-	if (e == 'json'){
-		lerJson(nomeArquivo)
-	}
-	if (e == 'csv'){
-		lerCsv(nomeArquivo)
-	}
-	if (e == 'xml'){
-		lerXML(nomeArquivo)
-	}
-
-}
-
-function lerEntrada(nomeArquivo){
-	var index = nomeArquivo.lastIndexOf(".")
+")
 	var extensao = nomeArquivo.substring(index + 1, nomeArquivo.length);
 	return extensao;
 }
@@ -28,10 +6,9 @@ function lerEntrada(nomeArquivo){
 function lerCsv(nomeArquivo){
 	var csv = require('csv-string')
 	var arquivo = __dirname + '/' + nomeArquivo;
-	var resultado;
 	fs.readFile(arquivo, 'utf8', (err, data) => {
-		resultado = csv.parse(data);
-		Intervalos(resultado)
+		n = csv.parse(data);
+		Intervalos(n)
 	})
 }
 function lerXML(nomeArquivo) {
@@ -40,8 +17,8 @@ function lerXML(nomeArquivo) {
 	var xmlParser = require('xml2js').parseString;
 
 	fs.readFile(nomeArquivo, function(err, data) {
-		xmlParser(data, function(err, result) {
-			Intervalos(result);
+		xmlParser(data, function(err, n) {
+			Intervalos(n);
 		});
 	})
 }
