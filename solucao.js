@@ -1,4 +1,26 @@
-")
+var fs = require('fs')
+
+main();
+
+function main() {
+	var nomeArquivo = process.argv[2];
+	var n;
+
+	var e = lerEntrada(nomeArquivo);
+	if (e == 'json'){
+		lerJson(nomeArquivo)
+	}
+	if (e == 'csv'){
+		lerCsv(nomeArquivo)
+	}
+	if (e == 'xml'){
+		lerXML(nomeArquivo)
+	}
+
+}
+
+function lerEntrada(nomeArquivo){
+	var index = nomeArquivo.lastIndexOf(".")
 	var extensao = nomeArquivo.substring(index + 1, nomeArquivo.length);
 	return extensao;
 }
